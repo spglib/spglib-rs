@@ -1,10 +1,11 @@
 //! Crystallographic information.
 
-use std::convert::{TryFrom, TryInto};
+use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
 
 use spglib_sys as ffi;
 
+use crate::cell::Cell;
 use crate::error::SpglibError;
 
 /// Container for a structure's crystallographic properties.
@@ -171,5 +172,37 @@ impl TryFrom<*mut ffi::SpglibDataset> for Dataset {
             std_mapping_to_primitive,
             pointgroup_symbol,
         })
+    }
+}
+
+impl Dataset {
+    /// Returns the dataset for a given cell.
+    ///
+    /// # Examples
+    ///
+    /// Get the dataset for a BCC cell.
+    ///
+    /// ```
+    /// use spglib::cell::Cell;
+    /// use spglib::dataset::Dataset;
+    ///
+    /// let lattice = [[4., 0., 0.], [0., 4., 0.], [0., 0., 4.]];
+    /// let positions = [[0., 0., 0.], [0.5, 0.5, 0.5]];
+    /// let types = [1, 1];
+    /// let mut bcc_cell = Cell::new(&lattice, &positions, &types);
+    /// let dataset = Dataset::new(&mut bcc_cell, 1e-5);
+    /// assert_eq!(dataset.hall_number, 529);
+    /// ```
+    pub fn new(cell: &mut Cell, symprec: f64) -> Dataset {
+        let raw = unsafe {
+            ffi::spg_get_dataset(
+                cell.lattice.as_ptr() as *mut [f64; 3],
+                cell.positions.as_ptr() as *mut [f64; 3],
+                cell.types.as_ptr() as *const i32,
+                cell.positions.len() as i32,
+                symprec,
+            )
+        };
+        Dataset::try_from(raw).unwrap()
     }
 }
