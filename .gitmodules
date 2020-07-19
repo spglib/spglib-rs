@@ -1,0 +1,3 @@
+[submodule "spglib-sys/spglib"]
+	path = spglib-sys/spglib
+	url = https://github.com/spglib/spglib.git

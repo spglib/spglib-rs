@@ -1,0 +1,15 @@
+[package]
+name = "spglib"
+version = "0.1.0"
+authors = ["Seaton Ullberg <seatonullberg@gmail.com>"]
+edition = "2018"
+description = "Rust bindings to spglib."
+repository = "https://github.com/spglib/spglib-rs"
+categories = ["science"]
+keywords = ["crystallography", "materials-science"]
+
+[lib]
+name = "spglib"
+
+[dependencies]
+spglib-sys = {path = "spglib-sys", version = "0.1.0"}
