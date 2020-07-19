@@ -63,7 +63,6 @@ pub struct Dataset {
 }
 
 impl TryFrom<*mut ffi::SpglibDataset> for Dataset {
-    // TODO
     type Error = SpglibError;
 
     fn try_from(value: *mut ffi::SpglibDataset) -> Result<Self, Self::Error> {
