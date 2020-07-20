@@ -1,6 +1,6 @@
 [package]
 name = "spglib-sys"
-version = "1.15.1"
+version = "1.15.1-1"
 authors = ["Seaton Ullberg <seatonullberg@gmail.com>"]
 edition = "2018"
 license = "BSD-3-Clause"
@@ -14,3 +14,4 @@ path = "lib.rs"
 
 [build-dependencies]
 bindgen = "0.52.0"
+cmake = "0.1"

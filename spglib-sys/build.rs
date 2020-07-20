@@ -1,10 +1,13 @@
-extern crate bindgen;
+use bindgen;
+use cmake;
 
 use std::env;
 use std::path::PathBuf;
 
 fn main() {
-    println!("cargo:rustc-link-lib=symspg");
+    let dst = cmake::build("spglib");
+    println!("cargo:rustc-link-search=native={}/build", dst.display());
+    println!("cargo:rustc-link-lib=static=symspg");
     println!("cargo:rerun-if-changed=wrapper.h");
     let bindings = bindgen::Builder::default()
         .header("wrapper.h")
