@@ -13,4 +13,4 @@ keywords = ["crystallography", "materials-science"]
 name = "spglib"
 
 [dependencies]
-spglib-sys = {path = "spglib-sys", version = "1.15"}
+spglib-sys = "1.15"
