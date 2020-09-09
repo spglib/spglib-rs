@@ -1,3 +1,5 @@
+//! Error types.
+
 use std::convert::From;
 use std::error;
 use std::fmt;
@@ -7,14 +9,23 @@ use spglib_sys as ffi;
 /// Possible error codes.
 #[derive(Clone, Debug)]
 pub enum SpglibError {
+    /// Raised when spacegroup search fails.
     SpacegroupSearchFailed,
+    /// Raised when cell standardization routine fails.
     CellStandardizationFailed,
+    /// Raised when symmetry operation search fails.
     SymmetryOperationSearchFailed,
+    /// Raised when atoms in a cell occupy the same site.
     AtomsTooClose,
+    /// Raised when pointgroup search fails.
     PointgroupNotFound,
+    /// Raised when Niggli reduction routine fails.
     NiggliFailed,
+    /// Raised when Delaunay reduction routine fails.
     DelaunayFailed,
+    /// Raised when an array argument has insufficient capacity.
     ArraySizeShortage,
+    /// Raised for any unknown errors.
     Unknown,
 }
 

@@ -178,7 +178,7 @@ impl TryFrom<*mut ffi::SpglibDataset> for Dataset {
 impl Dataset {
     /// Returns the dataset for a given cell.
     ///
-    /// # Examples
+    /// # Example
     ///
     /// Get the dataset for a BCC cell.
     ///

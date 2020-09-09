@@ -117,9 +117,9 @@ impl TryFrom<ffi::SpglibSpacegroupType> for Spacegroup {
 impl Spacegroup {
     /// Returns a spacegroup initialized by hall number
     ///
-    /// # Examples
+    /// # Example
     ///
-    /// Get the spacegroup for a BCC cell (hall number 529)
+    /// Get the spacegroup for a BCC cell (hall number 529).
     ///
     /// ```
     /// use spglib::spacegroup::Spacegroup;
