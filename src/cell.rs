@@ -89,13 +89,21 @@ impl Cell {
     /// Applies a Delaunay reduction to the cell.
     /// Refer to the full documentation of the implementation [here](https://spglib.github.io/spglib/api.html#spg-delaunay-reduce).
     pub fn delaunay_reduce(&mut self, eps: f64) -> Result<(), SpglibError> {
-        unimplemented!()
+        let res = unsafe { ffi::spg_delaunay_reduce(self.lattice.as_ptr() as *mut [f64; 3], eps) };
+        if res == 0 {
+            return Err(SpglibError::DelaunayFailed);
+        }
+        Ok(())
     }
 
     /// Applies a Niggli reduction to the cell.
     /// Refer to the full documentation of the implementation [here](https://spglib.github.io/spglib/api.html#spg-niggli-reduce).
     pub fn niggli_reduce(&mut self, eps: f64) -> Result<(), SpglibError> {
-        unimplemented!()
+        let res = unsafe { ffi::spg_niggli_reduce(self.lattice.as_ptr() as *mut [f64; 3], eps) };
+        if res == 0 {
+            return Err(SpglibError::NiggliFailed);
+        }
+        Ok(())
     }
 
     /// This method is not yet implemented.
