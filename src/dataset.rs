@@ -63,12 +63,16 @@ pub struct Dataset {
     pub pointgroup_symbol: String,
 }
 
-impl TryFrom<*mut ffi::SpglibDataset> for Dataset {
+// Internal wrapper struct to prevent aliasing of the underlying pointer.
+struct SpglibDatasetPointer(*mut ffi::SpglibDataset);
+
+impl TryFrom<SpglibDatasetPointer> for Dataset {
     type Error = SpglibError;
 
-    fn try_from(value: *mut ffi::SpglibDataset) -> Result<Self, Self::Error> {
+    fn try_from(value: SpglibDatasetPointer) -> Result<Self, Self::Error> {
         // dereference the raw pointer
-        let ptr = unsafe { &mut *value };
+        let ptr = unsafe { &mut *value.0 };
+
         // process fields
         let spacegroup_number = ptr.spacegroup_number as i32;
         let hall_number = ptr.hall_number as i32;
@@ -203,6 +207,6 @@ impl Dataset {
                 symprec,
             )
         };
-        Dataset::try_from(raw).unwrap()
+        Dataset::try_from(SpglibDatasetPointer(raw)).unwrap()
     }
 }
