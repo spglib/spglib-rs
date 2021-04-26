@@ -1,6 +1,6 @@
 [package]
 name = "spglib"
-version = "1.15.1"
+version = "1.16.1"
 authors = ["Seaton Ullberg <seatonullberg@gmail.com>"]
 edition = "2018"
 description = "Rust bindings to spglib."
@@ -13,4 +13,4 @@ keywords = ["crystallography", "materials-science"]
 name = "spglib"
 
 [dependencies]
-spglib-sys = "1.15"
+spglib-sys = "1.16.1"
